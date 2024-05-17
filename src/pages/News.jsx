@@ -11,12 +11,13 @@ const News = () => {
   const fetchNews = async () => {
     const options = {
       method: "GET",
-      url: "https://newsdata2.p.rapidapi.com/news",
-      params: { language: "en", q: "cryptocurrency" },
-      headers: {
-        "X-RapidAPI-Key": "27d95d49fcmshe45a3ec39ce438ap1e9abbjsn137363eadc59",
-        "X-RapidAPI-Host": "newsdata2.p.rapidapi.com",
-      },
+      // url: "https://newsdata2.p.rapidapi.com/news",
+      url: "https://newsdata.io/api/1/news?apikey=pub_19097c03a22e2f16f6b551fb99b124bb7f765&q=cryptocurrency&language=en",
+      // params: { language: "en", q: "cryptocurrency" },
+      // headers: {
+      //   "X-RapidAPI-Key": "27d95d49fcmshe45a3ec39ce438ap1e9abbjsn137363eadc59",
+      //   "X-RapidAPI-Host": "newsdata2.p.rapidapi.com",
+      // },
     };
     setLoading(true);
     if (count === 0) {

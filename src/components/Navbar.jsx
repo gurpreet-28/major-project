@@ -1,10 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthModal from "./AuthModal";
 import "./Navbar.css";
 import crypto from "./crypto.png";
+import { CryptoState } from "../CryptoContext";
+import UserSidebar from "./UserSidebar";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { user } = CryptoState();
 
   return (
     <>
@@ -62,6 +66,7 @@ function Navbar() {
             </ul>
           </div>
         </div>
+        <div>{user ? <UserSidebar /> : <AuthModal />}</div>
       </nav>
     </>
   );

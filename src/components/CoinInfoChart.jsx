@@ -14,6 +14,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { CryptoState } from "../CryptoContext";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { Button } from "@mui/material";
 
 const CoinInfoChart = ({ uuid, coin }) => {
   ChartJS.register(
@@ -28,19 +32,53 @@ const CoinInfoChart = ({ uuid, coin }) => {
 
   const context = useContext(NumbersContext);
   const { convertToInternationalCurrencySystem } = context;
+  const { user, watchlist, setAlert } = CryptoState();
 
   const [historicData, setHistoricData] = useState([]);
   const [duration, setDuration] = useState("24h");
   const [label, setLabel] = useState("24 Hours");
   const [flag, setFlag] = useState(false);
 
-  let watchlist = [];
-  let watchlistFromLS = JSON.parse(localStorage.getItem("watchlist"));
-  if (watchlistFromLS === null) {
-    watchlist = [];
-  } else {
-    watchlist = watchlistFromLS;
-  }
+  const addToWatchlist = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try {
+      await setDoc(coinRef, {
+        coins: watchlist ? [...watchlist, coin?.name] : [coin?.name],
+      });
+
+      setAlert({
+        open: true,
+        message: `${coin?.name} Added to Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({ open: true, message: error.message, type: "error" });
+    }
+  };
+
+  const removeFromWatchlist = async () => {
+    const coinRef = doc(db, "watchlist", user.uid);
+
+    try {
+      await setDoc(
+        coinRef,
+        {
+          coins: watchlist.filter((watch) => watch !== coin?.name),
+        },
+        { merge: "true" }
+      );
+
+      setAlert({
+        open: true,
+        message: `${coin?.name} Removed to Watchlist !`,
+        type: "success",
+      });
+    } catch (error) {
+      setAlert({ open: true, message: error.message, type: "error" });
+    }
+  };
+  const inWatchlist = watchlist.includes(coin?.name);
 
   const checkCoin = () => {
     let index = watchlist.findIndex((object) => {
@@ -70,19 +108,6 @@ const CoinInfoChart = ({ uuid, coin }) => {
     checkCoin();
     // eslint-disable-next-line
   }, [duration]);
-
-  // function convertToInternationalCurrencySystem(labelValue) {
-  //   // Nine Zeroes for Billions
-  //   return Math.abs(Number(labelValue)) >= 1.0e9
-  //     ? (Math.abs(Number(labelValue)) / 1.0e9).toFixed(2) + " B"
-  //     : // Six Zeroes for Millions
-  //     Math.abs(Number(labelValue)) >= 1.0e6
-  //     ? (Math.abs(Number(labelValue)) / 1.0e6).toFixed(2) + " M"
-  //     : // Three Zeroes for Thousands
-  //     Math.abs(Number(labelValue)) >= 1.0e3
-  //     ? (Math.abs(Number(labelValue)) / 1.0e3).toFixed(2) + " K"
-  //     : Math.abs(Number(labelValue)).toFixed(2);
-  // }
 
   return (
     <>
@@ -133,23 +158,23 @@ const CoinInfoChart = ({ uuid, coin }) => {
                 })}
               </ul>
             </div>
-            {flag ? (
-              <i className="fa-solid fa-star fa-lg ms-3"></i>
+            {/* {user ? (
+              <i className="fa-regular fa-star fa-lg ms-3"></i>
             ) : (
-              <i
-                className="fa-regular fa-star fa-lg ms-3"
-                onClick={() => {
-                  setFlag(true);
-                  const watchObj = {
-                    name: coin.name,
-                    icon: coin.iconUrl,
-                    symbol: coin.symbol,
-                    uuid: coin.uuid,
-                  };
-                  watchlist.push(watchObj);
-                  localStorage.setItem("watchlist", JSON.stringify(watchlist));
+              <i className="fa-solid fa-star fa-lg ms-3"></i>
+            )} */}
+            {user && (
+              <Button
+                variant="outlined"
+                style={{
+                  width: "37%",
+                  height: "40",
+                  color: "#144B9D",
                 }}
-              ></i>
+                onClick={inWatchlist ? removeFromWatchlist : addToWatchlist}
+              >
+                {inWatchlist ? "Remove from watchlist" : "Add to watchlist"}
+              </Button>
             )}
           </div>
         </div>

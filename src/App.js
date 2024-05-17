@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Watchlist from "./pages/Watchlist";
 import ScrollToTop from "./ScrollToTop";
 import NumbersState from "./context/NumbersState";
+import AlertBox from "./components/AlertBox";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/news" element={<News />} exact />
           </Routes>
           <Footer />
+          <AlertBox />
         </BrowserRouter>
       </NumbersState>
     </div>
