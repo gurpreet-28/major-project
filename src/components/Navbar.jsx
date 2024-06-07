@@ -54,8 +54,8 @@ function Navbar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/watchlist">
-                  Watchlist
+                <Link className="nav-link" to="/predict">
+                  Predict
                 </Link>
               </li>
               <li className="nav-item">

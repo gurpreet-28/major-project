@@ -6,10 +6,10 @@ import HomePage from "./pages/HomePage";
 import News from "./pages/News";
 import Cryptocurrencies from "./pages/Cryptocurrencies";
 import Footer from "./components/Footer";
-import Watchlist from "./pages/Watchlist";
 import ScrollToTop from "./ScrollToTop";
 import NumbersState from "./context/NumbersState";
 import AlertBox from "./components/AlertBox";
+import Predict from "./pages/Predict";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <Route path="/" element={<HomePage />} exact />
             <Route path="/coins" element={<Cryptocurrencies />} exact />
             <Route path="/coin/:uuid" element={<CoinPage />} exact />
-            <Route path="/watchlist" element={<Watchlist />} exact />
+            <Route path="/predict" element={<Predict />} exact />
             <Route path="/news" element={<News />} exact />
           </Routes>
           <Footer />

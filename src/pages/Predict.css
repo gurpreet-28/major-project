@@ -1,0 +1,19 @@
+.predict-list {
+  min-height: 492px;
+  /* border: 1px solid blue; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.predict-head {
+  padding: 10px 20px;
+  /* border: 1px solid red; */
+}
+.predict-card {
+  align-items: center;
+  padding-top: 10px;
+  margin: 10px;
+}
+.predict-coin-img {
+  width: 20%;
+}
