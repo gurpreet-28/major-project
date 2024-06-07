@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import { CryptoState } from "../CryptoContext";
 import { Avatar, Button } from "@mui/material";
@@ -170,10 +170,35 @@ export default function UserSidebar() {
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
-            <div className={classes.container}>
-              <div className={classes.profile}>
+            <div
+              // className={classes.container}
+              style={{
+                width: 350,
+                padding: 25,
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div
+                // className={classes.profile}
+                style={{
+                  flex: 1,
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "20px",
+                  height: "92%",
+                }}
+              >
                 <Avatar
-                  className={classes.picture}
+                  // className={classes.picture}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    cursor: "pointer",
+                    backgroundColor: "#194E9E",
+                    objectFit: "contain",
+                  }}
                   src={user.photoURL}
                   alt={user.displayName || user.email}
                 />
@@ -188,15 +213,52 @@ export default function UserSidebar() {
                 >
                   {user.displayName || user.email}
                 </span>
-                <div className={classes.watchlist}>
+                <div
+                  // className={classes.watchlist}
+                  style={{
+                    flex: 1,
+                    width: "100%",
+                    color: "rgba(255, 255, 255,0.9)",
+                    backgroundColor: "rgba(0,0,0, 0.2)",
+                    borderRadius: 10,
+                    padding: 15,
+                    paddingTop: 10,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: 12,
+                    overflowY: "scroll",
+                  }}
+                >
                   <span style={{ fontSize: 15, textShadow: "0 0 5px black" }}>
                     Watchlist
                   </span>
                   {coins.map((coin) => {
                     if (watchlist.includes(coin.name))
                       return (
-                        <div className={classes.coin}>
-                          <span className={classes.price}>{coin.name}</span>
+                        <div
+                          // className={classes.coin}
+                          style={{
+                            padding: 10,
+                            borderRadius: 5,
+                            color: "white",
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            backgroundColor: "#144B9D",
+                          }}
+                        >
+                          <span
+                            // className={classes.price}
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
+                            }}
+                          >
+                            {coin.name}
+                          </span>
                           <span style={{ display: "flex", gap: 8 }}>
                             ${convertToInternationalCurrencySystem(coin.price)}
                             <i
@@ -212,7 +274,13 @@ export default function UserSidebar() {
               </div>
               <Button
                 variant="contained"
-                className={classes.logout}
+                // className={classes.logout}
+                style={{
+                  height: "8%",
+                  width: "100%",
+                  backgroundColor: "#194E9E",
+                  marginTop: 20,
+                }}
                 onClick={logOut}
               >
                 Logout

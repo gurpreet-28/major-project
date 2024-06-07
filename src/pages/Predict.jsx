@@ -1,5 +1,6 @@
 import React from "react";
 import "./Predict.css";
+import { Link } from "react-router-dom";
 
 const Predict = () => {
   return (
@@ -36,9 +37,13 @@ const Predict = () => {
                 <div className="card-body">
                   <h5 className="card-title">Bitcoin</h5>
                   <p className="card-text">BTC</p>
-                  <a href="https://gurpreet28.me" className="btn btn-primary">
+                  <Link
+                    to="https://ethereum-prediction.streamlit.app/"
+                    target="_blank"
+                    className="btn btn-primary"
+                  >
                     Go somewhere
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

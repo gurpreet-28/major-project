@@ -8,7 +8,7 @@ import { AppBar, Tabs, Tab } from "@mui/material";
 import Login from "./Login";
 import Signup from "./Signup";
 import GoogleButton from "react-google-button";
-import { makeStyles } from "@mui/styles";
+// import { makeStyles } from "@mui/styles";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase";
 import { CryptoState } from "../CryptoContext";
@@ -25,24 +25,24 @@ const style = {
   p: 1.5,
 };
 
-const useStyles = makeStyles({
-  google: {
-    padding: 24,
-    paddingTop: 0,
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center",
-    gap: 20,
-    fontSize: 20,
-  },
-});
+// const useStyles = makeStyles({
+//   google: {
+//     padding: 24,
+//     paddingTop: 0,
+//     display: "flex",
+//     flexDirection: "column",
+//     textAlign: "center",
+//     gap: 20,
+//     fontSize: 20,
+//   },
+// });
 
 export default function AuthModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [value, setValue] = React.useState(0);
-  const classes = useStyles();
+  // const classes = useStyles();
   const { setAlert } = CryptoState();
 
   const handleChange = (event, newValue) => {
@@ -119,7 +119,18 @@ export default function AuthModal() {
             </AppBar>
             {value === 0 && <Login handleClose={handleClose} />}
             {value === 1 && <Signup handleClose={handleClose} />}
-            <Box className={classes.google}>
+            <Box
+              // className={classes.google}
+              style={{
+                padding: 24,
+                paddingTop: 0,
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+                gap: 20,
+                fontSize: 20,
+              }}
+            >
               <span>OR</span>
               <GoogleButton
                 style={{ width: "100%", outline: "none" }}
