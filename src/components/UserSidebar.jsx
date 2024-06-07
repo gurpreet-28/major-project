@@ -3,74 +3,74 @@ import * as React from "react";
 import Drawer from "@mui/material/Drawer";
 import { CryptoState } from "../CryptoContext";
 import { Avatar, Button } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+// import { makeStyles } from "@mui/styles";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import axios from "axios";
 import NumbersContext from "../context/NumbersContext";
 import { doc, setDoc } from "firebase/firestore";
 
-const useStyles = makeStyles({
-  container: {
-    width: 350,
-    padding: 25,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  profile: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "20px",
-    height: "92%",
-  },
-  picture: {
-    width: 200,
-    height: 200,
-    cursor: "pointer",
-    backgroundColor: "#194E9E",
-    objectFit: "contain",
-  },
-  logout: {
-    height: "8%",
-    width: "100%",
-    backgroundColor: "#194E9E",
-    marginTop: 20,
-  },
-  watchlist: {
-    flex: 1,
-    width: "100%",
-    color: "rgba(255, 255, 255,0.9)",
-    backgroundColor: "rgba(0,0,0, 0.2)",
-    borderRadius: 10,
-    padding: 15,
-    paddingTop: 10,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 12,
-    overflowY: "scroll",
-  },
-  coin: {
-    padding: 10,
-    borderRadius: 5,
-    color: "white",
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#144B9D",
-  },
-  price: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-});
+// const useStyles = makeStyles({
+//   container: {
+//     width: 350,
+//     padding: 25,
+//     height: "100%",
+//     display: "flex",
+//     flexDirection: "column",
+//   },
+//   profile: {
+//     flex: 1,
+//     flexDirection: "column",
+//     alignItems: "center",
+//     gap: "20px",
+//     height: "92%",
+//   },
+//   picture: {
+//     width: 200,
+//     height: 200,
+//     cursor: "pointer",
+//     backgroundColor: "#194E9E",
+//     objectFit: "contain",
+//   },
+//   logout: {
+//     height: "8%",
+//     width: "100%",
+//     backgroundColor: "#194E9E",
+//     marginTop: 20,
+//   },
+//   watchlist: {
+//     flex: 1,
+//     width: "100%",
+//     color: "rgba(255, 255, 255,0.9)",
+//     backgroundColor: "rgba(0,0,0, 0.2)",
+//     borderRadius: 10,
+//     padding: 15,
+//     paddingTop: 10,
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//     gap: 12,
+//     overflowY: "scroll",
+//   },
+//   coin: {
+//     padding: 10,
+//     borderRadius: 5,
+//     color: "white",
+//     width: "100%",
+//     display: "flex",
+//     justifyContent: "space-between",
+//     alignItems: "center",
+//     backgroundColor: "#144B9D",
+//   },
+//   price: {
+//     display: "flex",
+//     flexDirection: "column",
+//     justifyContent: "center",
+//   },
+// });
 
 export default function UserSidebar() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [coins, setCoins] = React.useState([]);
   const [state, setState] = React.useState({
     right: false,
