@@ -9,8 +9,6 @@ import "./HomePage.css";
 function HomePage() {
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState([]);
-  const [bestCoins, setBestCoins] = useState([]);
-  const [newestCoins, setNewestCoins] = useState([]);
 
   const fetchStats = async () => {
     setLoading(true);
@@ -26,8 +24,6 @@ function HomePage() {
     const { data } = await axios.request(options);
     setLoading(false);
     setStats(data.data);
-    setBestCoins(data.data.bestCoins);
-    setNewestCoins(data.data.newestCoins);
   };
 
   useEffect(() => {
@@ -45,7 +41,7 @@ function HomePage() {
         <div className="home">
           <Banner />
           <Stats stats={stats} />
-          <Carousel bestCoins={bestCoins} newestCoins={newestCoins} />
+          <Carousel />
         </div>
       )}
     </>

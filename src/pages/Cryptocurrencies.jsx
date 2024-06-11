@@ -5,41 +5,28 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import NumbersContext from "../context/NumbersContext";
 import "./Cryptocurrencies.css";
+import { CoinList } from "../config/api";
+import { CryptoState } from "../CryptoContext";
 
 function Cryptocurrencies() {
   const navigate = useNavigate();
+  const { currency } = CryptoState();
 
-  const [list, setList] = useState([]);
+  const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
   const fetchCoins = async () => {
-    const options = {
-      method: "GET",
-      url: "https://coinranking1.p.rapidapi.com/coins",
-      params: {
-        referenceCurrencyUuid: "yhjMzLPhuIDl",
-        timePeriod: "24h",
-        "tiers[0]": "1",
-        orderBy: "marketCap",
-        orderDirection: "desc",
-        limit: "100",
-        offset: "0",
-      },
-      headers: {
-        "X-RapidAPI-Key": "27d95d49fcmshe45a3ec39ce438ap1e9abbjsn137363eadc59",
-        "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-      },
-    };
-
     setLoading(true);
-    const { data } = await axios.request(options);
-    setList(data.data.coins);
+    const { data } = await axios.get(CoinList(currency));
+    setCoins(data);
     setLoading(false);
   };
 
-  list.sort((a, b) => {
+  console.log(coins);
+
+  coins.sort((a, b) => {
     return a.rank - b.rank;
   });
 
@@ -50,10 +37,10 @@ function Cryptocurrencies() {
     document.title = "Coins - CoinsCrypt";
     fetchCoins();
     // eslint-disable-next-line
-  }, []);
+  }, [currency]);
 
   const handleSearch = () => {
-    return list.filter((coin) => {
+    return coins.filter((coin) => {
       return (
         coin.name.toLowerCase().includes(search) ||
         coin.symbol.toLowerCase().includes(search)
@@ -93,40 +80,43 @@ function Cryptocurrencies() {
                 <tbody>
                   {handleSearch()
                     .slice((page - 1) * 10, (page - 1) * 10 + 10)
-                    .map((row) => {
+                    .map((coin) => {
                       return (
-                        <tr key={row.name} className="coin-row">
-                          <th scope="row">{row.rank}</th>
+                        <tr key={coin.name} className="coin-coin">
+                          <th scope="coin">{coin.market_cap_rank}</th>
                           <td
                             onClick={() => {
-                              navigate(`/coin/${row.uuid}`);
+                              navigate(`/coin/${coin.id}`);
                             }}
                             className="coin-name"
                           >
                             <img
-                              src={row.iconUrl}
+                              src={coin.image}
                               alt="coin-img"
                               style={{ width: "50px" }}
                               className="table-coin-img me-2"
                             />
-                            {row.name}
-                          </td>
-                          <td>
-                            ${convertToInternationalCurrencySystem(row.price)}
-                          </td>
-                          <td
-                            style={
-                              row.change < 0
-                                ? { color: "red" }
-                                : { color: "green" }
-                            }
-                          >
-                            {row.change}%
+                            {coin.name}
                           </td>
                           <td>
                             $
                             {convertToInternationalCurrencySystem(
-                              row.marketCap
+                              coin.current_price
+                            )}
+                          </td>
+                          <td
+                            style={
+                              coin.price_change_percentage_24h < 0
+                                ? { color: "red" }
+                                : { color: "green" }
+                            }
+                          >
+                            {coin.price_change_percentage_24h}%
+                          </td>
+                          <td>
+                            $
+                            {convertToInternationalCurrencySystem(
+                              coin.market_cap
                             )}
                           </td>
                         </tr>

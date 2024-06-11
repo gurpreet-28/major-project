@@ -5,10 +5,11 @@ import "./Navbar.css";
 import crypto from "./crypto.png";
 import { CryptoState } from "../CryptoContext";
 import UserSidebar from "./UserSidebar";
+import { MenuItem, Select } from "@mui/material";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { user } = CryptoState();
+  const { currency, setCurrency, user } = CryptoState();
 
   return (
     <>
@@ -64,9 +65,27 @@ function Navbar() {
                 </Link>
               </li>
             </ul>
+            <div className="d-flex">
+              <div>
+                <Select
+                  variant="outlined"
+                  style={{
+                    width: 100,
+                    height: 40,
+                    marginRight: 10,
+                    color: "black",
+                  }}
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                >
+                  <MenuItem value={"USD"}>USD</MenuItem>
+                  <MenuItem value={"INR"}>INR</MenuItem>
+                </Select>
+              </div>
+              <div>{user ? <UserSidebar /> : <AuthModal />}</div>
+            </div>
           </div>
         </div>
-        <div>{user ? <UserSidebar /> : <AuthModal />}</div>
       </nav>
     </>
   );

@@ -35,9 +35,48 @@ const CoinInfoChart = ({ uuid, coin }) => {
   const { user, watchlist, setAlert } = CryptoState();
 
   const [historicData, setHistoricData] = useState([]);
+  const [chartData, setChartData] = useState([]);
   const [duration, setDuration] = useState("24h");
   const [label, setLabel] = useState("24 Hours");
   const [flag, setFlag] = useState(false);
+
+  const coinPrice = [];
+  const coinTimestamp = [];
+
+  for (let i = 0; i < historicData?.data?.history?.length; i += 1) {
+    coinPrice.push(historicData?.data?.history[i].price);
+  }
+
+  for (let i = 0; i < historicData?.data?.history?.length; i += 1) {
+    coinTimestamp.push(new Date(historicData?.data?.history[i].timestamp));
+  }
+
+  console.log(coinPrice);
+  console.log(coinTimestamp);
+  const data = {
+    labels: coinTimestamp,
+    datasets: [
+      {
+        label: "Price In USD",
+        data: coinPrice,
+        fill: false,
+        backgroundColor: "#0071bd",
+        borderColor: "#0071bd",
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
 
   const addToWatchlist = async () => {
     const coinRef = doc(db, "watchlist", user.uid);
@@ -90,7 +129,7 @@ const CoinInfoChart = ({ uuid, coin }) => {
   };
 
   const fetchHistoricalData = async () => {
-    const options = {
+    const options1 = {
       method: "GET",
       url: `https://coinranking1.p.rapidapi.com/coin/${uuid}/history`,
       params: { referenceCurrencyUuid: "yhjMzLPhuIDl", timePeriod: duration },
@@ -99,12 +138,31 @@ const CoinInfoChart = ({ uuid, coin }) => {
         "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
       },
     };
-    const { data } = await axios.request(options);
-    setHistoricData(data.data.history);
+    const { data } = await axios.request(options1);
+    // console.log(data.data.history[0].price);
+    setHistoricData(data);
+
+    // const options2 = {
+    //   method: "GET",
+    //   url: `https://api.coingecko.com/api/v3/coins/${coin.name}/market_chart?vs_currency=usd&days=1`,
+    // };
+    // const { chartData } = await axios.get(
+    //   `https://api.coingecko.com/api/v3/coins/${coin.name.toLowerCase()}/market_chart?vs_currency=usd&days=1`
+    // );
+    // console.log(chartData);
+    // setChartData(chartData);
+  };
+
+  const fetchChartData = async () => {
+    const { chartData } = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/${coin.name.toLowerCase()}/market_chart?vs_currency=usd&days=1`
+    );
+    console.log(chartData);
   };
 
   useEffect(() => {
     fetchHistoricalData();
+    // fetchChartData();
     checkCoin();
     // eslint-disable-next-line
   }, [duration]);
@@ -158,11 +216,6 @@ const CoinInfoChart = ({ uuid, coin }) => {
                 })}
               </ul>
             </div>
-            {/* {user ? (
-              <i className="fa-regular fa-star fa-lg ms-3"></i>
-            ) : (
-              <i className="fa-solid fa-star fa-lg ms-3"></i>
-            )} */}
             {user && (
               <Button
                 variant="outlined"
@@ -194,17 +247,19 @@ const CoinInfoChart = ({ uuid, coin }) => {
         </div>
       </div>
       <div className="chart" style={{ width: "90%" }}>
-        <Line
+        <Line data={data} options={options} />
+        {/* <Line
           key={Math.random()}
           data={{
             labels: historicData.map((data) => {
               let date = new Date(data.timestamp);
-              let time =
-                date.getHours() > 12
-                  ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                  : `${date.getHours()}:${date.getMinutes()} AM`;
+              // let time =
+              //   date.getHours() > 12
+              //     ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+              //     : `${date.getHours()}:${date.getMinutes()} AM`;
 
-              return duration === "24h" ? time : date.toLocaleDateString();
+              // return duration === "24h" ? time : date.toLocaleDateString();
+              return date.toLocaleDateString();
             }),
             datasets: [
               {
@@ -223,7 +278,7 @@ const CoinInfoChart = ({ uuid, coin }) => {
               },
             },
           }}
-        />
+        /> */}
       </div>
     </>
   );
