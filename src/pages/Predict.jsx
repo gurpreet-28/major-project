@@ -245,6 +245,162 @@ const Predict = () => {
               </Link>
             </div>
           </div>
+          <div className="row">
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">USDC</h5>
+                    <p className="card-text">USDC</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Polkadot</h5>
+                    <p className="card-text">DOT</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/tron-trx-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Tron</h5>
+                    <p className="card-text">TRX</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/chainlink-link-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Chainlink</h5>
+                    <p className="card-text">LINK</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/polygon-matic-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Polygon</h5>
+                    <p className="card-text">MATIC</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/near-protocol-near-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">NEAR Protocol</h5>
+                    <p className="card-text">NEAR</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/internet-computer-icp-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Internet Computer</h5>
+                    <p className="card-text">ICP</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col">
+              <Link
+                to="https://ethereum-prediction.streamlit.app/"
+                target="_blank"
+                className="predict-card-link"
+              >
+                <div className="card predict-card">
+                  <img
+                    src="https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=032"
+                    className="card-img-top predict-coin-img"
+                    alt="BTC"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">Litecoin</h5>
+                    <p className="card-text">LTC</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>

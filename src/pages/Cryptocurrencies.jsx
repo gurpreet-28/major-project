@@ -24,8 +24,6 @@ function Cryptocurrencies() {
     setLoading(false);
   };
 
-  console.log(coins);
-
   coins.sort((a, b) => {
     return a.rank - b.rank;
   });

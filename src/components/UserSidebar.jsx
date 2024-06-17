@@ -4,41 +4,16 @@ import { CryptoState } from "../CryptoContext";
 import { Avatar, Button } from "@mui/material";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
-import axios from "axios";
 import NumbersContext from "../context/NumbersContext";
 import { doc, setDoc } from "firebase/firestore";
 
 export default function UserSidebar() {
-  const [coins, setCoins] = React.useState([]);
   const [state, setState] = React.useState({
     right: false,
   });
-  const { user, setAlert, watchlist } = CryptoState();
+  const { user, setAlert, watchlist, coins, symbol } = CryptoState();
   const context = React.useContext(NumbersContext);
   const { convertToInternationalCurrencySystem } = context;
-
-  const fetchCoins = async () => {
-    const options = {
-      method: "GET",
-      url: "https://coinranking1.p.rapidapi.com/coins",
-      params: {
-        referenceCurrencyUuid: "yhjMzLPhuIDl",
-        timePeriod: "24h",
-        "tiers[0]": "1",
-        orderBy: "marketCap",
-        orderDirection: "desc",
-        limit: "100",
-        offset: "0",
-      },
-      headers: {
-        "X-RapidAPI-Key": "27d95d49fcmshe45a3ec39ce438ap1e9abbjsn137363eadc59",
-        "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-      },
-    };
-
-    const { data } = await axios.request(options);
-    setCoins(data.data.coins);
-  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -68,24 +43,20 @@ export default function UserSidebar() {
       await setDoc(
         coinRef,
         {
-          coins: watchlist.filter((watch) => watch !== coin?.name),
+          coins: watchlist.filter((watch) => watch !== coin?.id),
         },
         { merge: "true" }
       );
 
       setAlert({
         open: true,
-        message: `${coin?.name} Removed to Watchlist !`,
+        message: `${coin.name} Removed to Watchlist !`,
         type: "success",
       });
     } catch (error) {
       setAlert({ open: true, message: error.message, type: "error" });
     }
   };
-
-  React.useEffect(() => {
-    fetchCoins();
-  });
 
   return (
     <div>
@@ -172,7 +143,7 @@ export default function UserSidebar() {
                     Watchlist
                   </span>
                   {coins.map((coin) => {
-                    if (watchlist.includes(coin.name))
+                    if (watchlist.includes(coin.id))
                       return (
                         <div
                           style={{
@@ -196,7 +167,10 @@ export default function UserSidebar() {
                             {coin.name}
                           </span>
                           <span style={{ display: "flex", gap: 8 }}>
-                            ${convertToInternationalCurrencySystem(coin.price)}
+                            {symbol}
+                            {convertToInternationalCurrencySystem(
+                              coin.current_price
+                            )}
                             <i
                               class="fa-solid fa-trash"
                               style={{ cursor: "pointer" }}
@@ -205,6 +179,7 @@ export default function UserSidebar() {
                           </span>
                         </div>
                       );
+                    else return <></>;
                   })}
                 </div>
               </div>

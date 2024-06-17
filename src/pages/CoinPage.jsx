@@ -9,6 +9,7 @@ import { numberWithCommas } from "../components/Carousel";
 import { CryptoState } from "../CryptoContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import Spinner from "../components/Spinner";
 
 const CoinPage = () => {
   const { id } = useParams();
@@ -21,18 +22,19 @@ const CoinPage = () => {
 
     setCoin(data);
   };
+  const inWatchlist = watchlist.includes(coin?.id);
 
   const addToWatchlist = async () => {
     const coinRef = doc(db, "watchlist", user.uid);
 
     try {
       await setDoc(coinRef, {
-        coins: watchlist ? [...watchlist, coin?.name] : [coin?.name],
+        coins: watchlist ? [...watchlist, coin?.id] : [coin?.id],
       });
 
       setAlert({
         open: true,
-        message: `${coin?.name} Added to Watchlist !`,
+        message: `${coin.name} Added to Watchlist !`,
         type: "success",
       });
     } catch (error) {
@@ -47,7 +49,7 @@ const CoinPage = () => {
       await setDoc(
         coinRef,
         {
-          coins: watchlist.filter((watch) => watch !== coin?.name),
+          coins: watchlist.filter((watch) => watch !== coin?.id),
         },
         { merge: "true" }
       );
@@ -61,14 +63,13 @@ const CoinPage = () => {
       setAlert({ open: true, message: error.message, type: "error" });
     }
   };
-  const inWatchlist = watchlist.includes(coin?.name);
 
   useEffect(() => {
     fetchCoin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
+  if (!coin) return <Spinner />;
 
   return (
     <div
