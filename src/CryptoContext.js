@@ -2,6 +2,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "./firebase";
 import { doc, onSnapshot } from "firebase/firestore";
+import axios from "axios";
+import { CoinList } from "./config/api";
 
 const Crypto = createContext();
 
@@ -10,15 +12,21 @@ const CryptoContext = ({ children }) => {
   const [symbol, setSymbol] = useState("₹");
   const [user, setUser] = useState(null);
   const [watchlist, setWatchlist] = useState([]);
+  const [coins, setCoins] = useState([]);
   const [alert, setAlert] = useState({
     open: false,
     message: "",
     type: "success",
   });
 
+  const fetchCoins = async () => {
+    const { data } = await axios.get(CoinList(currency));
+    setCoins(data);
+  };
+
   useEffect(() => {
     if (user) {
-      const coinRef = doc(db, "watchlist", user.uid);
+      const coinRef = doc(db, "watchlist", user?.uid);
 
       var unsubscribe = onSnapshot(coinRef, (coin) => {
         if (coin.exists()) {
@@ -34,13 +42,17 @@ const CryptoContext = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    // if (currency === "INR") setSymbol("₹");
-    // else if (currency === "USD") setSymbol("$");
+    if (currency === "INR") setSymbol("₹");
+    else if (currency === "USD") setSymbol("$");
     onAuthStateChanged(auth, (user) => {
       if (user) setUser(user);
       else setUser(null);
     });
   }, [currency]);
+
+  useEffect(() => {
+    fetchCoins();
+  });
 
   return (
     <Crypto.Provider
@@ -50,6 +62,7 @@ const CryptoContext = ({ children }) => {
         symbol,
         alert,
         setAlert,
+        coins,
         user,
         watchlist,
       }}

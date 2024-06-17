@@ -1,69 +1,109 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Carousel.css";
+import { CryptoState } from "../CryptoContext";
+import { TrendingCoins } from "../config/api";
+import "react-alice-carousel/lib/alice-carousel.css";
+import axios from "axios";
+import AliceCarousel from "react-alice-carousel";
+import { Link } from "react-router-dom";
 
-const Carousel = ({ bestCoins, newestCoins }) => {
+export function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const Carousel = () => {
+  const [trending, setTrending] = useState([]);
+  const { currency, symbol } = CryptoState();
+
+  const fetchTrendingCoins = async () => {
+    const { data } = await axios.get(TrendingCoins(currency));
+    setTrending(data);
+  };
+
+  useEffect(() => {
+    fetchTrendingCoins();
+    // eslint-disable-next-line
+  }, [currency]);
+
+  const items = trending.map((coin) => {
+    let profit = coin?.price_change_percentage_24h >= 0;
+
+    return (
+      <Link
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          color: "rgba(0,0,0,0.8)",
+          textDecoration: "none",
+        }}
+        to={`/coin/${coin.id}`}
+      >
+        <img
+          src={coin?.image}
+          alt={coin.name}
+          height="80"
+          style={{ marginBottom: 10 }}
+        />
+        <span>
+          {coin?.symbol}
+          &nbsp;
+          <span
+            style={{
+              color: profit > 0 ? "rgb(14, 203, 129)" : "red",
+              fontWeight: 500,
+            }}
+          >
+            {profit && "+"}
+            {coin?.price_change_percentage_24h?.toFixed(2)}%
+          </span>
+        </span>
+        <span style={{ fontSize: 22, fontWeight: 500 }}>
+          {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}
+        </span>
+      </Link>
+    );
+  });
+
+  const responsive = {
+    0: {
+      items: 2,
+    },
+    512: {
+      items: 4,
+    },
+  };
+
   return (
-    <div className="carousel-section">
-      <div className="best carousel">
-        <div className="carousel-head">
-          <h3>Trending Coins</h3>
-        </div>
-        <div className="container">
-          <div className="row">
-            {bestCoins.map((coin) => {
-              return (
-                <div className="col coin-div" key={coin.uuid}>
-                  <Link to={`/coin/${coin.uuid}`}>
-                    <div className="carousel-card my-2">
-                      <img
-                        src={coin.iconUrl}
-                        alt="coin-img"
-                        className="coin-img"
-                      />
-                      <div className="carousel-card-body">
-                        <p>{coin.symbol}</p>
-                        <h5 className="carousel-card-title">{coin.name}</h5>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+    <>
+      <div
+        style={{ color: "#144b9d", width: "80%", margin: " 10px auto 10px" }}
+      >
+        <h2>Trending Coins</h2>
       </div>
-      <div className="new carousel mt-5">
-        <div className="carousel-head">
-          <h3>Newest Coins</h3>
-        </div>
-        <div className="container text-center">
-          <div className="row">
-            {newestCoins.map((coin) => {
-              return (
-                <Link
-                  className="col coin-div"
-                  to={`/coin/${coin.uuid}`}
-                  key={coin.uuid}
-                >
-                  <div className="carousel-card my-2">
-                    <img
-                      src={coin.iconUrl}
-                      alt="coin-img"
-                      className="coin-img"
-                    />
-                    <div className="carousel-card-body">
-                      <p>{coin.symbol}</p>
-                      <h5 className="carousel-card-title">{coin.name}</h5>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+      <div
+        style={{
+          height: "50%",
+          display: "flex",
+          alignItems: "center",
+          margin: "20px 0",
+        }}
+      >
+        <AliceCarousel
+          mouseTracking
+          infinite
+          autoPlayInterval={1000}
+          animationDuration={1500}
+          disableDotsControls
+          disableButtonsControls
+          responsive={responsive}
+          items={items}
+          autoPlay
+        />
       </div>
-    </div>
+    </>
   );
 };
 
