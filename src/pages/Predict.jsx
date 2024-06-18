@@ -52,7 +52,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://tether-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -71,7 +71,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://bnb-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -92,7 +92,7 @@ const Predict = () => {
           <div className="row">
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://xrp-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -111,7 +111,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://bitcoin-cash-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -130,7 +130,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://dogecoin-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -149,7 +149,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://toncoin-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -170,7 +170,7 @@ const Predict = () => {
           <div className="row">
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://cardano-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -189,7 +189,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://solana-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -208,7 +208,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://shiba-inu-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -227,7 +227,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://avalanche-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -248,7 +248,7 @@ const Predict = () => {
           <div className="row">
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://usdc-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -267,7 +267,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://polkadot-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -286,7 +286,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://tron-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -305,7 +305,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://chainlink-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -326,7 +326,7 @@ const Predict = () => {
           <div className="row">
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://polygon-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -345,7 +345,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://near-protocol-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -364,7 +364,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://internet-computer-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
@@ -383,7 +383,7 @@ const Predict = () => {
             </div>
             <div className="col">
               <Link
-                to="https://ethereum-prediction.streamlit.app/"
+                to="https://litecoin-prediction.streamlit.app/"
                 target="_blank"
                 className="predict-card-link"
               >
